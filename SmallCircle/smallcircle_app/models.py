@@ -5,15 +5,6 @@ from embed_video.fields import EmbedVideoField
 
 # Create your models here.
 
-class MainPage(models.Model):
-	category = models.ForeignKey(Category)
-	title = models.CharField(max_length=128)
-	url = models.URLField()
-	views = models.IntegerField(default=0)
-
-	def __unicode__(self):
-		return self.title
-
 
 class AccountManager(BaseUserManager):
 
@@ -65,27 +56,7 @@ class Account(AbstractBaseUser):
 		return ' '.join(self.first_name, self.last_name)
 
 	def get_short_name(self):
-		return self.first_name
-
-
-#class Category(models.Model):
-#	user = models.ForeignKey(User)
-#	name = models.CharField(max_length=128, unique=True)
-#	likes = models.IntegerField(default=0)
-#	slug = models.SlugField()
-
-
-#	def save(self, *args, **kwargs):
-#			self.slug = slugify(self.name)
-#
-#			if self.likes < 0:
-#				self.likes = 0
-
-#			super(Category, self).save(*args, **kwargs)
-		
-#	def __unicode__(self):
-#		return self.name
-		
+		return self.first_name		
 
 
 
@@ -104,43 +75,45 @@ class UserProfile(models.Model):
 
 
 
-
-
 class Audio(models.Model)
 	user = models.ForeignKey(User)
-	title = models.CharField(max_length=128)
-	url = models.URLField()
+	audio = EmbedVideoField()
+	artist = models.CharField(max_length=128)
+	song = models.CharField(max_length=128)
 	views = models.IntegerField(default=0)
+	updated_at = models.DateTimeField(auto_now=True)
 
 class Photos(models.Model)
 	user = models.ForeignKey(User)
-	title = models.CharField(max_length=128)
 	url = models.URLField()
+	title = models.CharField(max_length=128)
 	views = models.IntegerField(default=0)
-
+	updated_at = models.DateTimeField(auto_now=True)
 
 
 class Quotes(models.Model)
 	user = models.ForeignKey(User)
-	title = models.CharField(max_length=128)
 	url = models.URLField()
+	Quoter = models.CharField(max_length=128)
 	views = models.IntegerField(default=0)
-
+	updated_at = models.DateTimeField(auto_now=True) 
 
 
 class Videos(models.Model)
 	user = models.ForeignKey(User)
+	video = EmbedVideoField()
 	title = models.CharField(max_length=128)
-	url = models.URLField()
 	views = models.IntegerField(default=0)
-
+	updated_at = models.DateTimeField(auto_now=True)
 
 
 class Miscellaneous(models.Model)
 	user = models.ForeignKey(User)
-	title = models.CharField(max_length=128)
 	url = models.URLField()
+	title = models.CharField(max_length=128)
 	views = models.IntegerField(default=0)
+	updated_at = models.DateTimeField(auto_now=True)
+
 
 class View_all(models.Model)
 	
