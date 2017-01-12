@@ -1,0 +1,76 @@
+# import json
+# import urllib, urllib2
+# import os
+
+
+# BING_API_KEY = 0edb57021c3443608649061eed0152d7
+
+# '0edb57021c3443608649061eed0152d7'
+
+# def run_query(search_terms):
+#base format of url sent to bing. NEED this to access the api information
+# 	root_url = 'https://api.cognitive.microsoft.com/bing/v5.0/search[?q]/'
+# 	source = 'Web'
+# 	offset = 0
+# 	results_per_page = 10
+
+# wraps search terms in quotes. have to be wrapped in quotes to be submitted to api
+# 	query = "'{0}'".format(search_terms)
+#redefining 
+
+#readiups query to be handled by url
+# 	query = urllib.quote(query)
+#
+
+#CREATES THE SEARCH
+# 	search_url = "{0}{1}?format=json&$top={2}&$skip{3}&Query={4}".format(
+# 		root_url, 
+# 		source,
+# 		results_per_page,
+# 		offset,
+# 		query)
+
+#SIGNS US IN TO ALLOW US  TO ACCESS THE JSON DATA.
+# 	username = ''
+
+#allows us to login to bing automatically.  allows us to manage our paswords.
+# 	password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+
+#
+# 	password_mgr.add_password(None, search_url, username, BING_API_KEY)
+
+#Empty list of results.
+# 	results = []
+
+
+#Getting the information we just requested.
+#adds authentification information and the passwrd_mgr authenticates us.
+#Opens the information we just got back.
+#Submitting our query and opening json page needed to display the search results.
+# 	try:
+# 		handler = urllib2.HTTPBasicAuthHandler(password_mgr)
+# 		opener = urllib2.build_opener(handler)
+# 		urllib2.install_opener(opener)
+
+
+#.read-take all the text on the page and save it to one string.
+#using json libary to parse through string and create key values based off the string.
+# 		response = urllib2.urlopen(search_url).read()
+# 		json_response = json.loads(response)
+
+
+#making sure all the data being loaded is in dictionary we can look through.
+#d=data results=first data when you open data.
+# 		for result in json_response['d']['results']:
+# 			results.append({
+# 				'title' : result['Title'],
+# 				'link' : result['Url'],
+# 				'summary' : resutl['Description']
+# 				})
+
+#
+# 	except urllib2.URLError as e:
+# 		print search_url
+# 		print "Error when querying the bing API:", e
+
+# 	return results

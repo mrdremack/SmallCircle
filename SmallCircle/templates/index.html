@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+
+{% block body_block %}
+
+
+<div class="page-header">
+	<h1>smallcircle<h1>
+	
+</div>
+
+	
+
+<div class ="row placeholders">
+	<div class ="col-xs-12 col-md-6 placeholder">
+		<div class ="panel panel-primary">
+			<div class ="panel-heading">
+				<h3 class ="panel-title">Categories</h3>
+			</div>
+		</div>
+
+	{% if categories %}
+		<ul class ="list-group">
+		{% for category in categories %}
+			<li class ="list-group-item"><a href= "{% url 'category' category.slug %}"><p>{{category.name}}</p></a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+			<strong>There are no categories</strong>
+	{% endif %}
+</div>	
+
+
+ <!--adding pages to the other side of the screen)-->
+
+<div class ="row placeholders">
+	<div class ="col-xs-12 col-md-6 placeholder">
+		<div class ="panel panel-primary">
+			<div class ="panel-heading">
+				<h3 class ="panel-title">Media</h3>
+			</div>
+		</div>
+
+
+	{% if media %}
+			<ul class ="list-group">
+			{% for media in media %}
+			<li class ="list-group-item"><a href="{% url 'goto' %}?media_id={{media.id}}">{{media.title}}</a>
+			{% if media.views > 1 %}
+				{{ media.views }} views
+			{% elif media.views == 1 %}
+				{{ media.views }} view
+			{% endif %}
+			</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+			  <strong>There is no media</strong>
+	{% endif %}
+	</div>
+</div>
+	
+
+	
+
+{% endblock %}

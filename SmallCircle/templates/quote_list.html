@@ -1,0 +1,8 @@
+{% load embed_video_tags 'small' %}
+
+{% video item.quote as my_video %}
+	URL: {{% my_video.url %}}
+	Thumbnail: {{ my_video.backend }}
+	Backend: {{ my_video.backend }}
+	{% video my_video 'small' %} 
+{% endvideo %}

@@ -1,0 +1,18 @@
+{% if media %}
+<ul>
+	{% for audio in media %}
+	 <li><a href ="{% url 'goto' %}?media_id={{media.id}}">{{media.title}}</a>
+		{% if media.views > 1 %}
+	{{ media.views }} views
+		{% elif media.views == 1 %}
+	{{ media.views }} view
+	{% endif %}
+	<br>
+	added by <a href = "{% url 'profile' page.user % }">{{ media.user }}</a>
+	</li>
+	{% endfor %}
+	</ul>
+	{% else %}
+	<p>This category has no media</p>
+
+

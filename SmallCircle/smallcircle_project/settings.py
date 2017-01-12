@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smallcircle_app',
+    #'storages'
+    #'braces'
+    'embed_video',
 ]
 
 MIDDLEWARE = [
@@ -49,12 +53,41 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'smallcircle.urls'
+ROOT_URLCONF = 'smallcircle_project.urls'
+WSGI_APPLICATION = 'smallcircle_project.wsgi.application'
+
+
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+TEMPLATE_DIRS = ( 
+    TEMPLATE_PATH,
+    )
+
+STATIC_PATH = os.path.join(BASE_DIR,'static')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS= (
+    STATIC_PATH,
+)
+
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL='/media/'
+
+PASSWORD_HASHERS = (
+'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+'django.contrib.auth.hashers.BCryptPasswordHasher',
+'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+)
+
+LOGIN_URL='/login/'
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,12 +95,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.request',
+                'django.template.context_processors.media',
+                #'django.template.loaders.app_directories.Loader',
             ],
         },
     },
 ]
-
-WSGI_APPLICATION = 'smallcircle.wsgi.application'
 
 
 # Database
@@ -80,6 +114,14 @@ DATABASES = {
     }
 }
 
+EMBED_VIDEO_BACKENDS = (
+    'embed_video.backends.YoutubeBackend',
+    'embed_video.backends.VimeoBackend',
+    'embed_video.backends.SoundCloudBackend',
+    #'SmallCircle.backends.CustomBackend',
+
+
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -118,3 +160,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'mr.dremack@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('MAIL_PASS')

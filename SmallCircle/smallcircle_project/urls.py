@@ -13,9 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include 
 from django.contrib import admin
+from smallcircle_app import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    #url(r'^$', views.index, name='index'),
+    url(r'^', include('smallcircle_app.urls')),
+    url(r'^user/(?P<user_username>[\w\-]+)/$',views.user_profile, name='profile'),
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
