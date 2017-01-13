@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load extras %}
+
 
 {% block title %}Register{% endblock %}
 
@@ -31,7 +31,7 @@
 					{{field.errors}}
 					{{field.help_text}}
 					{{ field.label}}
-					{{field |addcls:'for-control'}}
+					{{field}}
 				</div>
 				{% endfor %}
 
@@ -40,7 +40,7 @@
 					{{field.errors}}
 					{{field.help_text}}
 					{{ field.label}}
-					{{field |addcls:'for-control'}}
+					{{field}}
 				</div>
 				{% endfor %}
 				

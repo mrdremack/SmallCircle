@@ -24,7 +24,7 @@
 	{% if categories %}
 		<ul class ="list-group">
 		{% for category in categories %}
-			<li class ="list-group-item"><a href= "{% url 'category' category.slug %}"><p>{{category.name}}</p></a></li>
+			<li class ="list-group-item"><a href= "{% url 'category' category.slug %}"><p>{{category}}</p></a></li>
 			{% endfor %}
 		</ul>
 	{% else %}
@@ -47,7 +47,14 @@
 	{% if media %}
 			<ul class ="list-group">
 			{% for media in media %}
-			<li class ="list-group-item"><a href="{% url 'goto' %}?media_id={{media.id}}">{{media.title}}</a>
+			<li class ="list-group-item"><a href="{% url 'goto' %}?media_id={{media.id}}">{{media}}</a>
+
+
+			{% video media.videos as my_video %}
+				{% video my_video 'small' %} 
+			{% endvideo %}
+
+
 			{% if media.views > 1 %}
 				{{ media.views }} views
 			{% elif media.views == 1 %}
